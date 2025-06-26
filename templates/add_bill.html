@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+  <table id="current-bills">
+  <thead>
+    <tr>
+    <th colspan="2">Add New Bill</th>
+    </tr>
+    <tr>
+    <th>
+    <form method="POST" action="{{ url_for('add_bill')}}" id="billForm">
+        <label for="name">Bill Name:</label>
+    </th><td>
+        <input type="text" id="name" name="name" required><br><br>
+    </td>
+        
+    <tr><th>
+      <label for="amount">Amount:</label>
+    </th><td>
+      <input type="number" id="amount" name="amount" step="0.01" required><br><br>
+    </td>
+        
+    <tr><th>
+      <label for="due_date">Due Day:</label>
+    </th><td>
+      <select id="due_date" name="due_date" required>
+    {% for day in range(1, 29) %}
+        <option value="{{ day }}">
+            {{ day }}{% if day == 1 %}st{% elif day == 2 %}nd{% elif day == 3 %}rd{% else %}th{% endif %}
+        </option>
+    {% endfor %}
+</select>
+
+    </td>
+
+    <tr>
+  <th>
+    <label for="frequency">Frequency:</label>
+  </th>
+  <td>
+    <select id="frequency" name="frequency" required>
+      <option value="monthly">Monthly</option>
+      <option value="weekly">Weekly</option>
+      <option value="bi-weekly">Bi-Weekly</option>
+      <option value="semi-anually">Semi-Anually</option>
+      <option value="Anually">Anually</option>
+    </select>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    <label for="category">Category:</label>
+  </th>
+  <td>
+    <select id="category" name="category" required>
+      <option value="Miscellaneous">Miscellaneous</option>
+      <option value="Mortgage">Mortgage</option>
+      <option value="Groceries">Groceries</option>
+      <option value="Utilities">Utilities</option>
+      <option value="Subscription">Subscription</option>
+      <option value="Insurance">Insurance</option>
+      <option value="CreditCard">Credit Card</option>
+      <option value="Loan">Loan</option>
+      <option value="HealthCare">Health Care</option>
+      <option value="Pets">Pets</option>
+    </select><br><br>
+  </td>
+</tr>
+
+    <tr><th>
+      <label for="interest_rate">Interest Rate:</label>
+    </th><td>
+      <input type="number" id="interest_rate" name="interest_rate" step="0.01"><br><br>
+    </td>
+        
+    <tr><th>
+      <label for="balance">Current Balance:</label>
+    </th><td>
+      <input type="number" id="balance" name="balance" step="0.01"><br><br>
+    </td>
+
+    <tr><th>
+      <label for="is_automatic">Automatic Payment:</label>
+    </th><td>
+      <input type="checkbox" id="is_automatic" name="is_automatic"><br><br>
+    </td>
+        
+    <tr><th colspan="2">
+        <input type="submit" value="Add Bill">
+    </th>
+    </tr>
+    </form>
+    </table>
+</body>
+</html>
+<script>
+    function displayError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    const errorBox = document.getElementById('DisplayError')
+    errorBox.style.display = 'block';
+    errorBox.textContent = message;
+    field.classList.add('error');
+}
+
+function clearError(fieldId) {
+    const field = document.getElementById(fieldId);
+    const errorBox = document.getElementById('DisplayError')
+    //errorSpan.textContent = '';
+    //errorSpan.style.display = 'none';
+    errorBox.style.display = 'none';
+    errorBox.textContent = '';
+    field.classList.remove('error');
+}
+
+function validateForm() {
+    let isValid = true;
+    const name = document.getElementById('name').value.trim();
+    const amount = document.getElementById('amount').value.trim();
+    var due_date = document.getElementById('due_date').value;
+
+    console.log("Freq type " + frequency)
+    if (name === '') {
+        console.log("name is empty")
+        displayError('name', 'A Name for the income is required');
+        return false;
+    }
+
+    if (amount === '' || isNaN(parseFloat(amount))) {
+        displayError('amount', 'A valid amount is required');
+        return false;
+    }
+
+    if (due_date === '') {
+        displayError('due_date', 'A valid due date is required');
+        return false;
+    }
+
+    if (category === '') {
+        displayError('category', 'A category is required');
+        return false;
+    }
+
+    return isValid;
+}
+</script>
+
+</body>
+</html>
+{% endblock %}

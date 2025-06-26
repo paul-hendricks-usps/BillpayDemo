@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Amount Due</th>
+            <th>Amount Paid</th>
+            <th>Due Date</th>
+            <th>Date Paid</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for payment in payments %}
+        <tr>
+            <td>{{ payment.name }}</td>
+            <td>${{ "%.2f"|format(payment.amount_due) }}</td>
+            <td>${{ "%.2f"|format(payment.amount_paid) }}</td>
+            <td>{{ payment.due_date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ payment.date_paid.strftime('%Y-%m-%d') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+

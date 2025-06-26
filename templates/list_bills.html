@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+
+    <table id="bill-table">
+      <tr>
+        <th colspan="5">Bills
+          <div class="nav-buttons">
+            <a href="{{ url_for('add_bill') }}" class="nav-btn">Add a Bill</a>
+          </div>
+        </th>
+      </tr>
+      <tr>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Due Day</th>
+          <th>Automatic</th>
+          <th>Actions</th>
+      </tr>
+      {% for bill in bills %}
+      <tr>
+          <td>{{ bill.name }}</td>
+          <td>${{ "%.2f"|format(bill.amount) }}</td>
+          <td>{{ bill.due_date }}</td>
+          <td>{% if bill.is_automatic %}Yes{% else %}No{% endif %}</td>
+          <td>
+              <a href="{{ url_for('edit_bill', id=bill.id) }}"><i class="fas fa-edit"></i></a>
+              <button type="button" onclick="showModal('{{ bill.id }}', '{{ bill.name }}')"><i class="fas fa-trash"></i></button>
+          </td>
+      </tr>
+      {% endfor %}
+      <tr id="total-row">
+        <td><strong>Total Bills</strong></td>
+        <td colspan="4" id="total-amount"></td>
+      </tr>
+      </td></tr>
+      </table>
+
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">×</span>
+            <p id="confirmationMessage"></p>
+             <form method="post" id="confirmation-form">
+                 <input type="hidden" name="confirm_delete" id="confirm_delete_input" value="">
+                 <button type="button" class="modal-button" onclick="submitModal(true)">Yes</button>
+                  <button type="button" class="modal-button" onclick="submitModal(false)">Cancel</button>
+
+            </form>
+        </div>
+    </div>
+
+<script>
+ var modal = document.getElementById("confirmationModal");
+ var billId;
+
+function showModal(id, name) {
+   billId = id;
+   document.getElementById('confirmationMessage').innerText = "Are you sure you want to delete bill: '" + name + "'?";
+   modal.style.display = "block";
+}
+
+function submitModal(confirm) {
+    document.getElementById('confirm_delete_input').value = confirm;
+    document.getElementById('confirmation-form').action = '/delete_bill/' + billId;
+    document.getElementById('confirmation-form').submit();
+
+}
+
+function closeModal() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+function calculateTotalBills() {
+        const billTable = document.getElementById('bill-table');
+        const amounts = billTable.querySelectorAll('tr:not(#total-row) td:nth-child(2)');
+        let total = 0;
+        amounts.forEach(cell => {
+            total += parseFloat(cell.textContent.replace('$', '').replace(',', ''));
+        });
+        const totalRow = billTable.querySelector('#total-row');
+        if (!totalRow) {
+            const newRow = billTable.insertRow(-1);
+            newRow.id = 'total-row';
+            newRow.innerHTML = '<td colspan="2"><strong>Total</strong></td><td id="total-amount"></td>';
+        }
+        billTable.querySelector('#total-amount').textContent = '$' + total.toFixed(2);
+}
+
+window.onload = calculateTotalBills;
+</script>
+{% endblock %}
+</body>
+</html>

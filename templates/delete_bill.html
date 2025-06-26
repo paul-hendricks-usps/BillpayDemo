@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmation</title>
+</head>
+<body>
+    <h1>Delete Bill</h1>
+
+    {% if action_result %}
+       <p>{{ action_result }}</p>
+    {% endif %}
+
+
+    {% if not action_result %}
+    <form method="post" id="confirmation-form">
+        <button type="button" onclick="showConfirmation()">Confirm deletion</button>
+    
+        <input type="hidden" name="confirm_action" id="confirm_action_input" value="">
+
+    </form>
+    {% endif %}
+
+    {% if confirmation_message %}
+     <script>
+          function showConfirmation() {
+            if (confirm("{{ confirmation_message }}")) {
+              document.getElementById('confirm_action_input').value = 'true';
+              document.getElementById('confirmation-form').submit();
+            } else {
+               document.getElementById('confirm_action_input').value = 'false';
+              document.getElementById('confirmation-form').submit();
+            }
+          }
+    </script>
+    {% endif %}
+
+
+</body>
+</html>

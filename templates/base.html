@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bill Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="{{ url_for('current_bills') }}">Current Bills</a></li>
+        <li><a href="{{ url_for('bills') }}">Bills</a></li>
+        <li><a href="{{ url_for('income') }}">Income</a></li>
+        <li><a href="{{ url_for('payment_history') }}">Payment History</a></li>
+        <li><a href="{{ url_for('report') }}">Reports</a></li>
+    </ul>
+</nav>
+{% block content %}{% endblock %}
+</body>
+</html>
+

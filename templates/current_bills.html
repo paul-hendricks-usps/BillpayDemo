@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+{% extends "base.html" %}
+
+{% block content %}
+{% set running_balance = namespace(value=0) %}
+{% set total_bills = namespace(value=0) %}
+{% set total_paid = namespace(value=0) %}
+{% set total_income = namespace(value=0) %}
+{% set one_day = timedelta(days=1) %}
+{% set current_date = start_period %}
+{% set date_str = current_date.strftime('%m/%d/%Y') %}
+{% set next_period = current_date + timedelta(days=14) %}
+{% set previous_period = next_period - timedelta(days=28) %}
+
+<table id="current-bills">
+  <thead>
+    <tr>
+      <th colspan="8">Current Bills Due - From {{ start_period }}  To {{ end_period }}<div class="nav-buttons">
+        <a href="{{ url_for('current_bills', previous_period=previous_period) }}" class="nav-btn prev-btn">Previous</a>
+        <a href="{{ url_for('current_bills', next_period=next_period) }}" class="nav-btn next-btn">Next</a>
+        <a href="{{ url_for('report') }}" class="nav-btn next-btn">Reports</a>
+    </div></th>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <th>Amount</th>
+      <th>Due Date</th>
+      <th>Date Paid</th>
+      <th>Income</th>
+      <th>Amount Paid</th>
+      <th>Balance</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for day_offset in range((end_period - start_period).days + 1) %}
+    {% set date_str = (start_period + timedelta(days=day_offset)).strftime('%m/%d/%Y') %}
+    {% set current_date = date_str | to_datetime %}
+    {% if current_date in incomes %}
+        {% for income in incomes[current_date] %}
+            {% set total_income.value = total_income.value + income.amount %}
+            <tr>
+                <td>{{ income.name }}</td>
+                <td>${{ "%.2f"|format(income.amount) }}</td>
+                <td>{{ date_str }}</td>
+                <td>{{ date_str }}</td>
+                <td style="color:green;">${{ "%.2f"|format(income.amount) }}</td>
+                <td></td>
+                <td style="color:green;">${{ "%.2f"|format(running_balance.value + income.amount) }}</td>
+                <td><img src="{{ url_for('static', filename='images/large_bw_payday.png') }}" alt="Payday" class="payday-icon"></td>
+            </tr>
+            {% set running_balance.value = running_balance.value + income.amount %}
+        {% endfor %}
+    {% endif %}
+    {% for bill in bills|sort(attribute='due_date') %}
+       
+      {% set bill_due = bill.formatted_due_date | to_datetime %}
+      {% if bill_due == current_date %}
+        {% if bill.amount > 0 %}
+          {% set total_bills.value = total_bills.value + bill.amount %}
+        <tr>
+        <td>{{ bill.name }}
+            {% if bill.is_automatic %}
+                  <img src="{{ url_for('static', filename='images/automatic_word.png') }}" alt="Autopay" class="automatic-icon">
+            {% endif %}
+        </td>
+        <td>${{ "%.2f"|format(bill.amount) }}</td>
+        <td>{{ bill.formatted_due_date }}</td>
+        <td>
+          <form method="POST" action="{{ url_for('current_bills') }}">
+            <input type="hidden" name="bill_id" value="{{ bill.id }}">
+            <input type="hidden" name="full_due_date" value="{{ bill.formatted_due_date }}">
+            {% if bill.is_automatic %}
+              {% set total_paid.value = total_paid.value + bill.amount %}
+              {{ bill.formatted_due_date }}
+              <input type="hidden" name="date_paid" value="{{ bill.formatted_due_date }}">
+            {% else %}
+              {% if bill.date_paid %}
+                {% set total_paid.value = total_paid.value + bill.amount_paid %}
+                {{ bill.date_paid }}
+                <input type="hidden" name="date_paid" value="{{ bill.date_paid }}">
+              {% endif %}
+            {% endif %}
+            </td>
+            <td></td>
+            <td>
+            {% if bill.is_automatic %}
+              ${{ "%.2f"|format(bill.amount) }}
+                <input type="hidden" name="amount_paid" value="{{ bill.amount_paid }}">
+                {% set running_balance.value = running_balance.value - bill.amount %}
+              {% else %}
+                  {% if bill.amount_paid %}
+                    ${{ "%.2f"|format(bill.amount_paid) }}
+                    {% set running_balance.value = running_balance.value - bill.amount_paid %}
+                    {% set total_paid.value = total_paid.value + bill.amount_paid %}
+                    <input type="hidden" name="amount_paid" value="{{ bill.amount_paid }}">
+                  {% else %}
+                    <input type="number" step="0.01" name="amount_paid" value="{{ "%.2f"|format(bill.amount) }}" onfocus="this.value=''" required>
+                    {% set running_balance.value = running_balance.value - bill.amount %}
+                    {% set total_paid.value = total_paid.value + bill.amount %}
+                  {% endif %}
+                {% endif %}
+            </td>
+            <td>${{ "%.2f"|format(running_balance.value) }}</td>
+            <td>
+            {% if bill.date_paid or bill.is_automatic %}
+              <img src="{{ url_for('static', filename='images/sm_red_paid.jpg') }}" alt="Paid" class="paid-icon">
+            {% else %}
+              <button type="submit">Pay</button>
+            {% endif %}
+            </td>
+        </form>
+      </tr>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+
+  <tr id="total-row">
+    <td><strong>Totals</strong></td>
+    <td colspan="3"></td>
+    <td colspan="1"> ${{ "%.2f"|format(total_income.value) }}</td>
+    <td colspan="1"> ${{ "%.2f"|format(total_paid.value) }}</td>
+    <td colspan="1"> ${{ "%.2f"|format(running_balance.value) }}</td>
+    <td></td>
+  </tr>
+  </tbody>
+</table>
+{% endblock %}

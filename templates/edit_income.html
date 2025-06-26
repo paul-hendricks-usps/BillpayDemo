@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+<table id="current-bills">
+  <thead>
+    <tr>
+    <th colspan="2">Edit Income</th>
+    </tr>
+  </thead>
+    <tr>
+    <th>
+    <form method="POST" action="{{ url_for('edit_income', id=income.id) }}" id="incomeForm">
+      <label for="name" class="content-left">Income Name:</label>
+    </th>
+    <td>
+        <input type="text" id="name" name="name" value="{{ income.name }}"><br><br>
+        <span class="error-message" style="display: none;"></span>
+    </td>
+    <tr>
+    <th>
+        <label for="amount" class="content-left">Amount:</label>
+    </th>
+    <td>
+        <input type="number" id="amount" name="amount" step="0.01" value="{{ income.amount }}"><br><br>
+        <span class="error-message" style="display: none;"></span>
+    </td>
+    </tr>
+    <tr>
+    <th>
+        <label for="frequency" class="content-left">Frequency:</label>
+    </th>
+    <td>
+    <select id="frequency_type" name="frequency_type" onchange="toggleFrequencyOptions()">
+        <option value="" selected disabled>Select frequency</option>
+        <option value="one_time_deposit">One time deposit</option>
+        <option value="every_nth_day">Every nth day of the month</option>
+        <option value="every_n_weeks">Every x weeks</option>
+        <option value="every_nth_weekday">Every nth weekday of the month</option>
+    </select>
+    
+    <span class="error-message" style="display: none;"></span>
+
+    <div class="form-group" id="one_time_deposit_container" style="display: none;">
+        <span class="label-text">
+        <label for="one_time_frequency_value">Deposit date:</label>
+        <input type="date" id="one_time_date" name="one_time_date">
+        </span>
+    </div>
+
+    <div class="form-group" id="every_nth_day_container" style="display: none;">
+        <span class="label-text">
+        <label for="every_nth_day_frequency_value">Every:</label>
+        <select id="every_nth_day_frequency_value" name="every_nth_day_frequency_value">
+            <option value="">nth</option>
+        </select>
+        day of the month</span>
+    </div>
+
+    <div class="form-group" id="every_n_weeks_container" style="display: none;">
+        <span class="label-text"><label for="every_n_weeks_frequency_value">Every:</label>
+        <select id="every_n_weeks_frequency_value" name="every_n_weeks_frequency_value">
+            <option value=""># of weeks</option>
+        </select></span>
+        <span class="label-text">Starting on
+        <input type="date" id="every_n_weeks_start_date" name="every_n_weeks_start_date">
+        </span>
+    </div>
+
+    <div class="form-group" id="every_nth_weekday_container" style="display: none;">
+        <span class="label-text">
+            <label for="every_nth_weekday_frequency_value">Every:</label>
+            <select id="every_nth_weekday_frequency_value" name="every_nth_weekday_frequency_value">
+                <option value="">Nth Weekday</option>
+            </select>
+            day of the month
+        </span>
+
+        <span class="label-text"><label for="select_weekday">Weekday:</label>
+        <select id="select_weekday" name="select_weekday">
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+          <option value="Saturday">Saturday</option>
+          <option value="Sunday">Sunday</option>
+        </select>
+        </span>
+    </div>
+    </td>
+    <tr>
+    <th>
+    </th>
+    <td>
+        <button type="submit">Update Income</button> 
+        <a href="{{ url_for('income') }}" class="cancel-button">Cancel</a>
+    </td>
+    </tr>
+    </form>
+    </tr>
+    <tr>
+    <th colspan="2">
+      <div id="DisplayError" class="alert alert-danger" style="display: none;"></div>
+    </th>
+    </tr>
+</table>
+<script>
+function displayError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    const errorBox = document.getElementById('DisplayError')
+    errorBox.style.display = 'block';
+    errorBox.textContent = message;
+    field.classList.add('error');
+}
+
+function clearError(fieldId) {
+    const field = document.getElementById(fieldId);
+    const errorBox = document.getElementById('DisplayError')
+    errorBox.style.display = 'none';
+    errorBox.textContent = '';
+    field.classList.remove('error');
+}
+
+function validateForm() {
+    let isValid = true;
+    const name = document.getElementById('name').value.trim();
+    const amount = document.getElementById('amount').value.trim();
+    var frequency = document.getElementById('frequency_type').value;
+
+    console.log("Freq type " + frequency)
+    if (name === '') {
+        console.log("name is empty")
+        displayError('name', 'A Name for the income is required');
+        return false;
+    }
+
+    if (amount === '' || isNaN(parseFloat(amount))) {
+        displayError('amount', 'A valid amount is required');
+        return false;
+    }
+
+    if (frequency === '') {
+        displayError('frequency_type', 'Selecting the Frequency is required');
+        return false;
+    }
+
+    // Add more specific validations based on the selected frequency
+    if (frequency === 'one_time_deposit') {
+        const date = document.getElementById('one_time_date').value;
+        if (date === '') {
+            displayError('one_time_date', 'Date is required for one-time deposits');
+            isValid = false;
+        } else {
+            clearError('one_time_date')
+        }
+    }
+
+    if (frequency === 'every_nth_day') {
+        const date = document.getElementById('every_nth_day_frequency_value').value;
+        if (date === '') {
+            displayError('every_nth_day_frequency_value', 'A Day of the month is required for income');
+            isValid = false;
+        }
+    }
+    // Add similar checks for other frequency types
+
+    return isValid;
+}
+
+function populateFrequencyValues() {
+    var select = ''
+    const frequencyType = document.getElementById('frequency_type').value;
+    const ordinals = ['1st', '2nd', '3rd', '4th'];
+    console.log("frequency: " + frequencyType)
+    clearError('frequency_type');
+
+    if(! frequencyType)
+      return
+
+    let maxValue = 28;
+
+    if(frequencyType == 'one_time_deposit') {
+      //select = document.getElementById('one_time_frequency_value');
+      maxValue = 4;
+    }
+    else if(frequencyType == 'every_nth_day') {
+      select = document.getElementById('every_nth_day_frequency_value');
+      select.innerHTML = '<option value="">Select</option>';
+      maxValue = 28;
+    }
+    else if(frequencyType == 'every_n_weeks') {
+      select = document.getElementById('every_n_weeks_frequency_value');
+      select.innerHTML = '<option value="">Select</option>';
+      maxValue = 4;
+      console.log("Monthly Weekday")
+    }
+    else if(frequencyType == 'every_nth_weekday') {
+      select = document.getElementById('every_nth_weekday_frequency_value');
+      select.innerHTML = '<option value="">Select</option>';
+      maxValue = 4;
+    }
+
+    console.log("MAX: " + maxValue)
+    console.log("Processing " + frequencyType)
+
+    if(frequencyType == 'every_nth_day' || frequencyType == 'every_nth_weekday') 
+      for (let i = 1; i <= maxValue; i++) {
+        console.log("Adding " + i)
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i > 3 ? i + 'th' : ordinals[i - 1];
+        select.appendChild(option);
+      }
+    else if(frequencyType == 'every_n_weeks') 
+      for (let i = 1; i <= maxValue; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i + ' weeks';
+        select.appendChild(option);
+      }
+}
+
+function toggleFrequencyOptions() {
+    var frequencyType = document.getElementById('frequency_type').value;
+    var oneTime_Container = document.getElementById('one_time_deposit_container');
+    var every_nth_day_Container = document.getElementById('every_nth_day_container');
+    var every_n_weeks_Container = document.getElementById('every_n_weeks_container');
+    var every_nth_weekday_Container = document.getElementById('every_nth_weekday_container');
+    
+    oneTime_Container.style.display = 'none';
+    every_nth_day_Container.style.display = 'none';
+    every_n_weeks_Container.style.display = 'none';
+    every_nth_weekday_Container.style.display = 'none';
+
+    if (frequencyType === "") {
+        // Do nothing, all containers are hidden
+    } else if (frequencyType === 'one_time_deposit') {
+        oneTime_Container.style.display = 'block';
+    } else if (frequencyType == 'every_nth_day') {
+        every_nth_day_Container.style.display = 'block';
+    } else if (frequencyType === 'every_n_weeks') {
+        every_n_weeks_Container.style.display = 'block';
+    } else if (frequencyType === 'every_nth_weekday') {
+        every_nth_weekday_Container.style.display = 'block';
+    }
+}
+
+// Function to extract frequency type and values from existing income data
+function parseExistingFrequency() {
+    const frequencyString = "{{ income.frequency }}";
+    console.log("Parsing frequency: " + frequencyString);
+    
+    // Check for one-time deposit pattern
+    if (frequencyString.includes("One time deposit on")) {
+        const dateMatch = frequencyString.match(/One time deposit on (\d{4}-\d{2}-\d{2})/);
+        if (dateMatch && dateMatch[1]) {
+            document.getElementById('frequency_type').value = 'one_time_deposit';
+            document.getElementById('one_time_date').value = dateMatch[1];
+        }
+    }
+    // Check for every nth day pattern
+    else if (frequencyString.includes("of the month") && !frequencyString.includes("weekday")) {
+        const dayMatch = frequencyString.match(/Every (\d+)/);
+        if (dayMatch && dayMatch[1]) {
+            document.getElementById('frequency_type').value = 'every_nth_day';
+            // Populate and select the correct day value
+            populateFrequencyValues();
+            document.getElementById('every_nth_day_frequency_value').value = dayMatch[1];
+        }
+    }
+    // Check for every n weeks pattern
+    else if (frequencyString.includes("weeks starting")) {
+        const weeksMatch = frequencyString.match(/Every (\d+) weeks starting (\d{4}-\d{2}-\d{2})/);
+        if (weeksMatch && weeksMatch[1] && weeksMatch[2]) {
+            document.getElementById('frequency_type').value = 'every_n_weeks';
+            // Populate and select correct values
+            populateFrequencyValues();
+            document.getElementById('every_n_weeks_frequency_value').value = weeksMatch[1];
+            document.getElementById('every_n_weeks_start_date').value = weeksMatch[2];
+        }
+    }
+    // Check for nth weekday pattern
+    else if (frequencyString.includes("Every") && frequencyString.match(/(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)/)) {
+        const weekdayMatch = frequencyString.match(/Every (\d+)(?:st|nd|rd|th) (Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)/i);
+        if (weekdayMatch && weekdayMatch[1] && weekdayMatch[2]) {
+            document.getElementById('frequency_type').value = 'every_nth_weekday';
+            // Populate and select correct values
+            populateFrequencyValues();
+            document.getElementById('every_nth_weekday_frequency_value').value = weekdayMatch[1];
+            document.getElementById('select_weekday').value = weekdayMatch[2];
+        }
+    }
+    
+    // Toggle the appropriate container based on the frequency type
+    toggleFrequencyOptions();
+}
+
+document.getElementById('incomeForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    if (validateForm()) {
+        this.submit();
+    }
+});
+
+document.getElementById('name').addEventListener('input', function() {
+    if (this.value.trim() !== '') {
+        clearError('name');
+    }
+});
+
+document.getElementById('amount').addEventListener('input', function() {
+    if (!isNaN(parseFloat(this.value)) && this.value.trim() !== '') {
+        clearError('amount');
+    }
+});
+
+document.getElementById('one_time_date').addEventListener('input', function() {
+    if (this.value.trim() !== '') {
+        clearError('one_time_date');
+    }
+});
+
+document.getElementById('every_nth_day_frequency_value').addEventListener('change', function() {
+    if (!isNaN(parseFloat(this.value)) && this.value.trim() !== '') {
+        clearError('every_nth_day_frequency_value');
+    }
+});
+
+document.getElementById('every_n_weeks_frequency_value').addEventListener('change', function() {
+    if (!isNaN(parseFloat(this.value)) && this.value.trim() !== '') {
+        clearError('every_n_weeks_frequency_value');
+    }
+});
+
+document.getElementById('every_nth_weekday_frequency_value').addEventListener('change', function() {
+    if (!isNaN(parseFloat(this.value)) && this.value.trim() !== '') {
+        clearError('every_nth_weekday_frequency_value');
+    }
+});
+
+// Call this function when the frequency type changes
+document.getElementById('frequency_type').addEventListener('change', populateFrequencyValues);
+
+// Call initialization functions when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    populateFrequencyValues();
+    parseExistingFrequency();
+});
+
+</script>
+{% endblock %}
+</body>
+</html>
