@@ -72,7 +72,9 @@ if app.logger.hasHandlers():
 app.logger.addHandler(monthly_handler)
 app.logger.setLevel(logging.INFO)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bills.db'
+# filepath: app.py
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(basedir, 'var', 'app-instance', 'bills.db')}"
 app.config['SECRET_KEY'] = secrets.token_hex(16)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -738,8 +740,18 @@ def get_payday_start(pattern, pay_period_days):
     today = datetime.now().date()
     start_date = today
     start_date -= timedelta(days=31)
-    incomes = Income.query.all()
+    app.logger.info(f"get_payday_start: start_date: {start_date} today: {today}")
+    try:
+        incomes = Income.query.all()
+        app.logger.info(f"total incomes: {Income.query.count()}")
+    except Exception as e:
+        app.logger.info(f"Error querying incomes: {e}")
+        incomes = []
+
     payday = date(1, 1, 1)
+    # Add debug info
+    app.logger.info(f"get_payday_start: pattern: {pattern} pay_period_days: {pay_period_days} today: {today}")
+    app.logger.info(f"Incomes: {incomes}")
 
     for income in incomes:
         app.logger.info(f"Checking income for {pattern} - Found {income.name}")
@@ -870,6 +882,6 @@ if __name__ == '__main__':
         app.logger.info(f"Scheduler started")
         scheduler.start()
 
-    app.run(host='0.0.0.0', port=80, debug=False)
-    #app.run(host='0.0.0.0', port=8080, debug=True)
+    #app.run(host='0.0.0.0', port=80, debug=False)
+    app.run(host='0.0.0.0', port=8080, debug=True)
 
