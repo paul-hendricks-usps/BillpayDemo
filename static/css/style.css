@@ -1,5 +1,9 @@
- body {
-    font-family: Arial, sans-serif;
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
 }
 table {
     width: fit-content;
@@ -37,31 +41,55 @@ tr:hover {
     color: #666;
 }
 
-nav {
-    background-color: #3e66eb;
-    padding: 10px 0;
+.navbar {
+    background: linear-gradient(90deg, #4c74af, #3e66eb);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
 }
 
-nav ul {
+.navbar-list {
     list-style-type: none;
-    padding: 0;
-    margin: 0;
     display: flex;
-    justify-content: left;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
 }
 
-nav ul li {
-    margin: 0 15px;
+.navbar-list li {
+    margin: 0 10px;
 }
 
-nav ul li a {
-    color: white;
+.navbar-list a {
     text-decoration: none;
-    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 
-nav ul li a:hover {
-    color: #ddd;
+.navbar-list a:hover {
+    color: #e6f2ff;
+}
+
+.content {
+    padding: 20px;
+}
+
+.footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #4c74af;
+    color: white;
+    border-top: 1px solid #ddd;
+}
+
+.footer a {
+    color: #e6f2ff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
 }
 
 .active {

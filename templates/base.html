@@ -5,8 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-<nav>
-    <ul>
+<nav class="navbar">
+    <ul class="navbar-list">
         <li><a href="{{ url_for('current_bills') }}">Current Bills</a></li>
         <li><a href="{{ url_for('bills') }}">Bills</a></li>
         <li><a href="{{ url_for('income') }}">Income</a></li>
@@ -14,7 +14,12 @@
         <li><a href="{{ url_for('report') }}">Reports</a></li>
     </ul>
 </nav>
-{% block content %}{% endblock %}
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+<footer class="footer">
+    <p>&copy; 2023 Bill Management. <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a></p>
+</footer>
 </body>
 </html>
 

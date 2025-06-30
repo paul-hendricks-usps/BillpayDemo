@@ -764,3 +764,233 @@ OverflowError: date value out of range
 [2025-06-26 13:51:34,864] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
 [2025-06-26 13:51:34,864] INFO in app: Frequency: every_weekday
 [2025-06-26 13:51:34,869] INFO in app: Total Income: 3961.81
+[2025-06-27 11:35:08,572] INFO in app: Scheduler started
+[2025-06-27 11:35:09,301] INFO in app: Scheduler started
+[2025-06-27 11:35:21,273] INFO in app: in current_bills
+[2025-06-27 11:35:21,274] INFO in app: get_payday_start: start_date: 2025-05-27 today: 2025-06-27
+[2025-06-27 11:35:21,288] INFO in app: total incomes: 6
+[2025-06-27 11:35:21,289] INFO in app: get_payday_start: pattern: USPS Payday pay_period_days: 13 today: 2025-06-27
+[2025-06-27 11:35:21,289] INFO in app: Incomes: [<Income 2>, <Income 3>, <Income 4>, <Income 5>, <Income 6>, <Income 11>]
+[2025-06-27 11:35:21,289] INFO in app: Checking income for USPS Payday - Found Nick SSI
+[2025-06-27 11:35:21,290] INFO in app: Checking income for USPS Payday - Found Kan SSA
+[2025-06-27 11:35:21,290] INFO in app: Checking income for USPS Payday - Found CASI All Hands
+[2025-06-27 11:35:21,290] INFO in app: Checking income for USPS Payday - Found USPS Payday
+[2025-06-27 11:35:21,291] INFO in app: parse_income_pattern: Every 2 weeks starting 2024-01-19
+[2025-06-27 11:35:21,292] INFO in app: trying every_day_of_month
+[2025-06-27 11:35:21,292] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,293] INFO in app: trying every_nth_day
+[2025-06-27 11:35:21,293] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,293] INFO in app: trying every_weekday
+[2025-06-27 11:35:21,293] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:35:21,294] INFO in app: trying one_time
+[2025-06-27 11:35:21,294] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,294] INFO in app: trying every_weeks
+[2025-06-27 11:35:21,294] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,295] INFO in app: matched every_weeks
+[2025-06-27 11:35:21,295] INFO in app: found every_weeks
+[2025-06-27 11:35:21,298] INFO in app: Frequency: every_weeks
+[2025-06-27 11:35:21,298] INFO in app: Payday: 2025-06-20 key: every_weeks
+[2025-06-27 11:35:21,298] INFO in app: Checking income for USPS Payday - Found Leave Exchange
+[2025-06-27 11:35:21,299] INFO in app: Checking income for USPS Payday - Found Social Security
+[2025-06-27 11:35:21,300] INFO in app: Start: 2025-06-20, End: 2025-07-03
+[2025-06-27 11:35:21,300] INFO in app: Start Pay Period 2025-06-20 End Pay Period 2025-07-03
+[2025-06-27 11:35:21,300] INFO in app: parse_income_pattern: Every 1st of the month
+[2025-06-27 11:35:21,300] INFO in app: trying every_day_of_month
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_nth_day
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: matched every_nth_day
+[2025-06-27 11:35:21,300] INFO in app: found every_day_of_month
+[2025-06-27 11:35:21,300] INFO in app: trying every_weekday
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying one_time
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_weeks
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: Frequency: every_day_of_month
+[2025-06-27 11:35:21,300] INFO in app: parse_income_pattern: Every 2nd Wednesday of the month
+[2025-06-27 11:35:21,300] INFO in app: trying every_day_of_month
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_nth_day
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_weekday
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: matched every_weekday
+[2025-06-27 11:35:21,300] INFO in app: found every_weekday
+[2025-06-27 11:35:21,300] INFO in app: trying one_time
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_weeks
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: Frequency: every_weekday
+[2025-06-27 11:35:21,300] INFO in app: parse_income_pattern: One time deposit on 2024-12-18
+[2025-06-27 11:35:21,300] INFO in app: trying every_day_of_month
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_nth_day
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_weekday
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying one_time
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: matched one_time
+[2025-06-27 11:35:21,300] INFO in app: found one_time
+[2025-06-27 11:35:21,300] INFO in app: trying every_weeks
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: Frequency: one_time
+[2025-06-27 11:35:21,300] INFO in app: parse_income_pattern: Every 2 weeks starting 2024-01-19
+[2025-06-27 11:35:21,300] INFO in app: trying every_day_of_month
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_nth_day
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_weekday
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying one_time
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_weeks
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: matched every_weeks
+[2025-06-27 11:35:21,300] INFO in app: found every_weeks
+[2025-06-27 11:35:21,300] INFO in app: Frequency: every_weeks
+[2025-06-27 11:35:21,300] INFO in app: parse_income_pattern: One time deposit on 2025-01-31
+[2025-06-27 11:35:21,300] INFO in app: trying every_day_of_month
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_nth_day
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_weekday
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying one_time
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: matched one_time
+[2025-06-27 11:35:21,300] INFO in app: found one_time
+[2025-06-27 11:35:21,300] INFO in app: trying every_weeks
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: Frequency: one_time
+[2025-06-27 11:35:21,300] INFO in app: parse_income_pattern: Every 3rd Wednesday of the month
+[2025-06-27 11:35:21,300] INFO in app: trying every_day_of_month
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_nth_day
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_weekday
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: matched every_weekday
+[2025-06-27 11:35:21,300] INFO in app: found every_weekday
+[2025-06-27 11:35:21,300] INFO in app: trying one_time
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: trying every_weeks
+[2025-06-27 11:35:21,300] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:35:21,300] INFO in app: Frequency: every_weekday
+[2025-06-27 11:35:21,315] INFO in app: Total Income: 3961.81
+[2025-06-27 11:35:37,507] INFO in app: in edit_bill, bill is SunRun Solar Due: 1
+[2025-06-27 11:35:37,507] INFO in app: Frequency is None
+[2025-06-27 11:36:18,658] INFO in app: in current_bills
+[2025-06-27 11:36:18,658] INFO in app: get_payday_start: start_date: 2025-05-27 today: 2025-06-27
+[2025-06-27 11:36:18,659] INFO in app: total incomes: 6
+[2025-06-27 11:36:18,659] INFO in app: get_payday_start: pattern: USPS Payday pay_period_days: 13 today: 2025-06-27
+[2025-06-27 11:36:18,659] INFO in app: Incomes: [<Income 2>, <Income 3>, <Income 4>, <Income 5>, <Income 6>, <Income 11>]
+[2025-06-27 11:36:18,659] INFO in app: Checking income for USPS Payday - Found Nick SSI
+[2025-06-27 11:36:18,659] INFO in app: Checking income for USPS Payday - Found Kan SSA
+[2025-06-27 11:36:18,659] INFO in app: Checking income for USPS Payday - Found CASI All Hands
+[2025-06-27 11:36:18,659] INFO in app: Checking income for USPS Payday - Found USPS Payday
+[2025-06-27 11:36:18,660] INFO in app: parse_income_pattern: Every 2 weeks starting 2024-01-19
+[2025-06-27 11:36:18,660] INFO in app: trying every_day_of_month
+[2025-06-27 11:36:18,660] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,660] INFO in app: trying every_nth_day
+[2025-06-27 11:36:18,660] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,660] INFO in app: trying every_weekday
+[2025-06-27 11:36:18,660] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:36:18,660] INFO in app: trying one_time
+[2025-06-27 11:36:18,660] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,660] INFO in app: trying every_weeks
+[2025-06-27 11:36:18,660] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,660] INFO in app: matched every_weeks
+[2025-06-27 11:36:18,660] INFO in app: found every_weeks
+[2025-06-27 11:36:18,660] INFO in app: Frequency: every_weeks
+[2025-06-27 11:36:18,660] INFO in app: Payday: 2025-06-20 key: every_weeks
+[2025-06-27 11:36:18,660] INFO in app: Checking income for USPS Payday - Found Leave Exchange
+[2025-06-27 11:36:18,660] INFO in app: Checking income for USPS Payday - Found Social Security
+[2025-06-27 11:36:18,660] INFO in app: Start: 2025-06-20, End: 2025-07-03
+[2025-06-27 11:36:18,660] INFO in app: Start Pay Period 2025-06-20 End Pay Period 2025-07-03
+[2025-06-27 11:36:18,661] INFO in app: parse_income_pattern: Every 1st of the month
+[2025-06-27 11:36:18,661] INFO in app: trying every_day_of_month
+[2025-06-27 11:36:18,661] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,661] INFO in app: trying every_nth_day
+[2025-06-27 11:36:18,661] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,661] INFO in app: matched every_nth_day
+[2025-06-27 11:36:18,661] INFO in app: found every_day_of_month
+[2025-06-27 11:36:18,661] INFO in app: trying every_weekday
+[2025-06-27 11:36:18,661] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:36:18,661] INFO in app: trying one_time
+[2025-06-27 11:36:18,661] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,661] INFO in app: trying every_weeks
+[2025-06-27 11:36:18,661] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,661] INFO in app: Frequency: every_day_of_month
+[2025-06-27 11:36:18,663] INFO in app: parse_income_pattern: Every 2nd Wednesday of the month
+[2025-06-27 11:36:18,663] INFO in app: trying every_day_of_month
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: trying every_nth_day
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: trying every_weekday
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: matched every_weekday
+[2025-06-27 11:36:18,663] INFO in app: found every_weekday
+[2025-06-27 11:36:18,663] INFO in app: trying one_time
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: trying every_weeks
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: Frequency: every_weekday
+[2025-06-27 11:36:18,663] INFO in app: parse_income_pattern: One time deposit on 2024-12-18
+[2025-06-27 11:36:18,663] INFO in app: trying every_day_of_month
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: trying every_nth_day
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: trying every_weekday
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: trying one_time
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: matched one_time
+[2025-06-27 11:36:18,663] INFO in app: found one_time
+[2025-06-27 11:36:18,663] INFO in app: trying every_weeks
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: Frequency: one_time
+[2025-06-27 11:36:18,663] INFO in app: parse_income_pattern: Every 2 weeks starting 2024-01-19
+[2025-06-27 11:36:18,663] INFO in app: trying every_day_of_month
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: trying every_nth_day
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: trying every_weekday
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: trying one_time
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: trying every_weeks
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: matched every_weeks
+[2025-06-27 11:36:18,663] INFO in app: found every_weeks
+[2025-06-27 11:36:18,663] INFO in app: Frequency: every_weeks
+[2025-06-27 11:36:18,663] INFO in app: parse_income_pattern: One time deposit on 2025-01-31
+[2025-06-27 11:36:18,663] INFO in app: trying every_day_of_month
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: trying every_nth_day
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: trying every_weekday
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: trying one_time
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: matched one_time
+[2025-06-27 11:36:18,663] INFO in app: found one_time
+[2025-06-27 11:36:18,663] INFO in app: trying every_weeks
+[2025-06-27 11:36:18,663] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,663] INFO in app: Frequency: one_time
+[2025-06-27 11:36:18,663] INFO in app: parse_income_pattern: Every 3rd Wednesday of the month
+[2025-06-27 11:36:18,664] INFO in app: trying every_day_of_month
+[2025-06-27 11:36:18,664] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) day of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,664] INFO in app: trying every_nth_day
+[2025-06-27 11:36:18,664] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) of the month', re.IGNORECASE)
+[2025-06-27 11:36:18,664] INFO in app: trying every_weekday
+[2025-06-27 11:36:18,664] INFO in app: pattern re.compile('Every (\\d+)(?:st|nd|rd|th) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)', re.IGNORECASE)
+[2025-06-27 11:36:18,664] INFO in app: matched every_weekday
+[2025-06-27 11:36:18,664] INFO in app: found every_weekday
+[2025-06-27 11:36:18,664] INFO in app: trying one_time
+[2025-06-27 11:36:18,664] INFO in app: pattern re.compile('One time deposit on (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,664] INFO in app: trying every_weeks
+[2025-06-27 11:36:18,664] INFO in app: pattern re.compile('Every (\\d+) weeks starting (\\d{4}-\\d{2}-\\d{2})', re.IGNORECASE)
+[2025-06-27 11:36:18,664] INFO in app: Frequency: every_weekday
+[2025-06-27 11:36:18,666] INFO in app: Total Income: 3961.81
